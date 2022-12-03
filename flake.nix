@@ -9,7 +9,7 @@
     in {
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.bashInteractive ];
-        buildInputs = with pkgs; [ rustc cargo rust-analyzer gcc python ];
+        buildInputs = with pkgs; [ rustc cargo clippy rust-analyzer gcc python ];
       };
     });
 }
