@@ -28,6 +28,7 @@ impl FromStr for Input {
 }
 
 impl Solve for Input {
+    type Output = usize;
     fn solve1(&self) -> anyhow::Result<usize> {
         let n = self
             .0
@@ -45,6 +46,7 @@ impl Solve for Input {
             .count();
         Ok(n)
     }
+
 }
 
 fn main() {

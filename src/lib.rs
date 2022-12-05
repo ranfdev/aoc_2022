@@ -1,10 +1,12 @@
 use std::io;
 use std::io::prelude::*;
 use std::str::FromStr;
+use std::fmt::Debug;
 
 pub trait Solve: FromStr {
-    fn solve1(&self) -> anyhow::Result<usize>;
-    fn solve2(&self) -> anyhow::Result<usize>;
+    type Output: Debug;
+    fn solve1(&self) -> anyhow::Result<Self::Output>;
+    fn solve2(&self) -> anyhow::Result<Self::Output>;
     fn solve_and_print_all()
     where
         <Self as FromStr>::Err: std::fmt::Debug,

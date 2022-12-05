@@ -22,6 +22,7 @@ fn priority(c: char) -> usize {
     n as usize + 1
 }
 impl Solve for Input {
+    type Output = usize;
     fn solve1(&self) -> anyhow::Result<usize> {
         let r = self
             .0

@@ -34,6 +34,7 @@ fn beats(n: usize) -> Option<usize> {
 }
 
 impl Solve for Input {
+    type Output = usize;
     fn solve1(&self) -> anyhow::Result<usize> {
         let r = self
             .0

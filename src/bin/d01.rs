@@ -16,6 +16,7 @@ impl FromStr for Input {
 }
 
 impl Solve for Input {
+    type Output = usize;
     fn solve1(&self) -> anyhow::Result<usize> {
         Ok(*self.0.iter().rev().next().unwrap())
     }
