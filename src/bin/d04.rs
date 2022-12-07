@@ -18,7 +18,7 @@ impl FromStr for Input {
                     .iter()
                     .skip(1) // the first match is the full str
                     .flat_map(|n| n.unwrap().as_str().parse::<usize>())
-                    .tuples() 
+                    .tuples()
                     .collect_tuple()
             })
             .collect::<Vec<_>>();
@@ -46,7 +46,6 @@ impl Solve for Input {
             .count();
         Ok(n)
     }
-
 }
 
 fn main() {

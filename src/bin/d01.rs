@@ -9,7 +9,8 @@ impl FromStr for Input {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut r: Vec<usize> = s
             .split("\n\n")
-            .map(|group| group.lines().filter_map(|l| l.parse::<usize>().ok()).sum()).collect();
+            .map(|group| group.lines().filter_map(|l| l.parse::<usize>().ok()).sum())
+            .collect();
         r.sort();
         Ok(Input(r))
     }

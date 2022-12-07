@@ -1,6 +1,6 @@
-use std::io::prelude::*;
-use std::fs::File;
 use std::env;
+use std::fs::File;
+use std::io::prelude::*;
 use std::path::PathBuf;
 
 fn main() -> anyhow::Result<()> {
