@@ -18,7 +18,7 @@ fn find_sol(s: &str, n: usize) -> Option<usize> {
         .map(|(i, _)| (i, s.chars().skip(i + 1).take(n)))
         .find_map(|(i, x)| {
             let m = x.collect::<HashSet<_>>();
-            (m.len() == n).then(|| i + n + 1)
+            (m.len() == n).then_some(i + n + 1)
         })
 }
 

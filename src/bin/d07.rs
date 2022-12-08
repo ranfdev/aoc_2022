@@ -69,7 +69,7 @@ impl FromStr for CommandLs {
     type Err = anyhow::Error;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         (s.strip_prefix("$ ").context("not a cmd")? == "ls")
-            .then(|| CommandLs())
+            .then(CommandLs)
             .ok_or(anyhow!("cmd is not ls"))
     }
 }
@@ -120,10 +120,8 @@ impl DirValue {
 
     fn traverse_rec(f: &mut impl FnMut(&DirValue), dir: &DirValue) {
         f(dir);
-        if dir.child.len() > 0 {
-            for d in &dir.child {
-                Self::traverse_rec(f, &d.borrow());
-            }
+        for d in &dir.child {
+            Self::traverse_rec(f, &d.borrow());
         }
     }
 }
@@ -179,7 +177,7 @@ impl Runtime {
             size: 0,
             child: vec![],
         }));
-        current.child.push(new_dir.clone());
+        current.child.push(new_dir);
     }
     fn exec_lines(&mut self, lines: impl Iterator<Item = Line>) {
         for line in lines {

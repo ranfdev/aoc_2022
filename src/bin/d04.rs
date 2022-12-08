@@ -1,6 +1,6 @@
 use aoc_2022::*;
 use itertools::Itertools;
-use std::ops::Range;
+
 use std::str::FromStr;
 
 struct Input(Vec<((usize, usize), (usize, usize))>);

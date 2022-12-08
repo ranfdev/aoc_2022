@@ -12,7 +12,7 @@ impl FromStr for Input {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let (stacks, moves) = s.split_once("\n\n").unwrap();
         let stacks: Vec<Vec<char>> = stacks
-            .rsplit_once("\n")
+            .rsplit_once('\n')
             .unwrap()
             .0
             .lines()
