@@ -38,7 +38,7 @@ impl Solve for Input {
                 let valid = to_check
                     .into_iter()
                     .any(move |it| it.map(|(ii, jj)| self.0[ii][jj] < item).all(|x| x));
-                valid.then(|| item)
+                valid.then_some(item)
             })
             .count();
         Ok(r + rows * 2 + cols * 2 - 4)
