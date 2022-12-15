@@ -25,7 +25,7 @@ impl PartialOrd for Value {
                 vl @ Value::List(_) => Value::List(vec![vn.clone()]).cmp(vl),
             },
             vl @ Value::List(l) => match other {
-                vn @ Value::Number(_) => vl.cmp(&Value::List(vn.into_list())),
+                vn @ Value::Number(_) => vl.cmp(&Value::List(vn.clone().into_list())),
                 Value::List(m) => l.cmp(m),
             },
         };
@@ -38,10 +38,10 @@ impl Ord for Value {
     }
 }
 impl Value {
-    fn into_list(&self) -> Vec<Value> {
+    fn into_list(self) -> Vec<Value> {
         match self {
             Value::List(list) => list.to_vec(),
-            Value::Number(n) => vec![Value::Number(*n)],
+            Value::Number(n) => vec![Value::Number(n)],
         }
     }
 }
@@ -60,7 +60,7 @@ fn tokenize(s: &str) -> Vec<Token> {
     let iter = s.chars();
     let mut num = String::new();
     for c in iter {
-        if c.is_digit(10) {
+        if c.is_ascii_digit() {
             num.push(c);
         } else {
             if !num.is_empty() {
@@ -136,7 +136,7 @@ impl Solve for Input {
             .into_iter()
             .map(|pair| {
                 let (p0, p1) = pair.collect_tuple().unwrap();
-                p0.cmp(&p1)
+                p0.cmp(p1)
             })
             .enumerate()
             .filter(|(_, o)| *o == Ordering::Less)

@@ -36,13 +36,13 @@ impl FromStr for Input {
     }
 }
 
-struct CPU {
+struct Cpu {
     x: isize,
     clock: usize,
 }
 
-impl CPU {
-    fn exec(&mut self, op: Ops, mut inspect: impl FnMut(&CPU)) {
+impl Cpu {
+    fn exec(&mut self, op: Ops, mut inspect: impl FnMut(&Cpu)) {
         let cycles = op.duration();
         for _ in 0..cycles {
             inspect(self);
@@ -53,7 +53,7 @@ impl CPU {
             Ops::AddX(v) => self.x += v,
         }
     }
-    fn mainloop(&mut self, ops: &Vec<Ops>, mut inspect: impl FnMut(&CPU)) {
+    fn mainloop(&mut self, ops: &Vec<Ops>, mut inspect: impl FnMut(&Cpu)) {
         let mut pc = 0;
         while pc < ops.len() {
             // fetch
@@ -68,7 +68,7 @@ impl CPU {
 impl Solve for Input {
     type Output = isize;
     fn solve1(&self) -> anyhow::Result<isize> {
-        let mut cpu = CPU { x: 1, clock: 1 };
+        let mut cpu = Cpu { x: 1, clock: 1 };
         let mut tot = 0isize;
         cpu.mainloop(&self.0, |c| {
             if c.clock == 20 || (c.clock > 20 && (c.clock - 20) % 40 == 0) {
@@ -80,7 +80,7 @@ impl Solve for Input {
     }
 
     fn solve2(&self) -> anyhow::Result<isize> {
-        let mut cpu = CPU { x: 1, clock: 1 };
+        let mut cpu = Cpu { x: 1, clock: 1 };
         let mut crt = vec![];
         cpu.mainloop(&self.0, |c| {
             let pixel_being_drawn = (c.clock as isize - 1) % 40;

@@ -70,7 +70,7 @@ impl FromStr for CommandLs {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         (s.strip_prefix("$ ").context("not a cmd")? == "ls")
             .then(CommandLs)
-            .ok_or(anyhow!("cmd is not ls"))
+            .ok_or_else(|| anyhow!("cmd is not ls"))
     }
 }
 impl FromStr for File {
